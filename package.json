@@ -1,0 +1,27 @@
+{
+  "name": "effective-typescript-lessons",
+  "version": "1.0.0",
+  "description": "lessons from the book effective typescript",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GustavoRSSilva/effective-typescript-lessons.git"
+  },
+  "keywords": [
+    "typescript"
+  ],
+  "author": "Gustavo Silva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GustavoRSSilva/effective-typescript-lessons/issues"
+  },
+  "homepage": "https://github.com/GustavoRSSilva/effective-typescript-lessons#readme",
+  "dependencies": {
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
+}
