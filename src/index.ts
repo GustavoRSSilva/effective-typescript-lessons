@@ -36,3 +36,25 @@ console.log('**Runtime variables** (ex: responses from APIs), can change, and so
 
 newModule('TypeScript Types Have No Effect on Runtime Performance')
 console.log('Because types and type operations are erased when you generate JavaScript, they cannot have an effect on runtime performance. TypeScript’s static types are truly zero cost. The next time someone offers runtime overhead as a reason to not use TypeScript, you’ll know exactly how well they’ve tested this claim!');
+
+newModule('TypeScript Typed, still works with different name types')
+console.log(`
+interface Vector2D {
+    x: number;
+    y: number;
+}
+
+interface NamedVector {
+    name: string;
+    x: number;
+    y: number;
+}
+
+function calculateLength(v: Vector2D) {
+    return Math.sqrt(v.x * v.x + v.y * v.y);
+}
+const v: NamedVector = { x: 3, y: 4, name: 'Zee' };
+calculateLength(v)  // OK, result is 5`
+);
+console.log('Typescript does not force to be the same type, as long it has the same properties. It is tested in runtime.');
+console.log('They normalize the object typeOf NamedVector to fit the type Vector2D.');
