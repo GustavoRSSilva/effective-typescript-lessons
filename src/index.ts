@@ -58,3 +58,14 @@ calculateLength(v)  // OK, result is 5`
 );
 console.log('Typescript does not force to be the same type, as long it has the same properties. It is tested in runtime.');
 console.log('They normalize the object typeOf NamedVector to fit the type Vector2D.');
+
+newModule('Structural typing can also lead to surprises with classes')
+console.log(`class C {
+    foo: string;
+    constructor(foo: string) {
+      this.foo = foo;
+    }
+  }
+  
+  const c = new C('instance of C');
+  const d: C = { foo: 'object literal' };  // OK!`);
