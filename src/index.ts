@@ -11,6 +11,7 @@ console.log('const num: number = str as any');
 //  const num: number = str as any
 console.log('console.log(\'num\'); //=>  \'not a string\'');
 // console.log(num);
+console.log('WITH ANY, YOU DISABLE THE TYPECHECKING');
 
 newModule('Use ! to asset an object')
 console.log('Use ! to asset that an object is not undefined');
@@ -69,3 +70,10 @@ console.log(`class C {
   
   const c = new C('instance of C');
   const d: C = { foo: 'object literal' };  // OK!`);
+
+newModule('Any disables typechecking')
+console.log(  `let age: number;
+  age = '12';
+// ~~~ Type '"12"' is not assignable to type 'number'
+  age = '12' as any;  // OK
+  age += 1;  // OK; at runtime, age is now "121"`);
