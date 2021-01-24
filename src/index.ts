@@ -76,4 +76,83 @@ console.log(  `let age: number;
   age = '12';
 // ~~~ Type '"12"' is not assignable to type 'number'
   age = '12' as any;  // OK
-  age += 1;  // OK; at runtime, age is now "121"`);
+  age += 1;  // OK; at runtime, age is now "121"`
+  );
+
+newModule('typeof null i object do be careful')
+console.log('this does not work as intended');
+console.log(`function getElement(elOrId: string|HTMLElement|null): HTMLElement {
+  if (typeof elOrId === 'object') {
+    return elOrId;
+ // ~~~~~~~~~~~~~~ 'HTMLElement | null' is not assignable to 'HTMLElement'
+  } else if (elOrId === null) {
+    return document.body;
+  } else {
+    const el = document.getElementById(elOrId);
+    return el;
+ // ~~~~~~~~~~ 'HTMLElement | null' is not assignable to 'HTMLElement'
+  }
+}`);
+console.log('you need to check if null first!');
+
+newModule('use Types as set of values')
+console.log('typeof /y/ //=>', typeof /y/);
+console.log('The smalled type has a single value');
+console.log('type A = \'A\'');
+newLine()
+newLine()
+
+console.log('how keyof works');
+newLine()
+console.log(`interface Point {
+  x: number;
+  y: number;
+}
+type PointKeys = keyof Point;  // Type is "x" | "y"
+
+function sortBy<K extends keyof T, T>(vals: T[], key: K): T[] {
+  // ...
+}
+const pts: Point[] = [{x: 1, y: 1}, {x: 2, y: 0}];
+sortBy(pts, 'x');  // OK, 'x' extends 'x'|'y' (aka keyof T)
+sortBy(pts, 'y');  // OK, 'y' extends 'x'|'y'
+sortBy(pts, Math.random() < 0.5 ? 'x' : 'y');  // OK, 'x'|'y' extends 'x'|'y'
+sortBy(pts, 'z');
+// ~~~ Type '"z"' is not assignable to parameter of type '"x" | "y"`);
+
+console.log('in the function name we declare the available type, in this case <K extends keyof T, T> is the same as <T, K extends keyof T>');
+
+console.log('<Person>{} is the same as {} as Person');
+
+console.log(`
+type TopNavState = {
+  userId: State['userId'];
+  pageTitle: State['pageTitle'];
+  recentFiles: State['recentFiles'];
+};
+
+is the same as
+
+type TopNavState = {
+  [k in 'userId' | 'pageTitle' | 'recentFiles']: State[k]
+};
+`);
+
+console.log(`Types are different that functions, types you need to specify: 
+interface Name {
+  first: string;
+  last: string;
+}
+type DancingDuo<T extends Name> = [T, T];
+
+const couple1: DancingDuo<Name> = [
+  {first: 'Fred', last: 'Astaire'},
+  {first: 'Ginger', last: 'Rogers'}
+];  // OK
+`);
+
+console.log('arrays are objects, so their keys are strings, not numbers. number as an index signature is a purely TypeScript construct which is designed to help catch bugs.');
+console.log('const a = \'123\' as const make the type readonly string')
+
+console.log('Dictionary<string> is the same as {[key: string]: string} or Record<string, string>.')
+
