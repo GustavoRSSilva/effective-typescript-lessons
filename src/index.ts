@@ -156,3 +156,65 @@ console.log('const a = \'123\' as const make the type readonly string')
 
 console.log('Dictionary<string> is the same as {[key: string]: string} or Record<string, string>.')
 
+console.log(`only use {} instead of unknown if you really do know that null and undefined aren’t possibilities.`)
+
+console.log(`for type coverage use:
+$ npx type-coverage
+9985 / 10117 98.69%
+
+or
+
+$ npx type-coverage --detail
+path/to/code.ts:1:10 getColumnInfo
+path/to/module.ts:7:1 pt2
+...`);
+
+console.log(`When the type is available only the variable use this to fetch the type:
+type MySanta = ReturnType<typeof getGift>;  // SecretSanta
+type MyName = Parameters<typeof getGift>[0];  // SecretName`);
+
+
+newModule('TSDocs')
+console.log(`You can document type using the typescript default documentation:
+/** A measurement performed at a time and place. */
+interface Measurement {
+  /** Where was the measurement made? */
+  position: Vector3D;
+  /** When was the measurement made? In seconds since epoch. */
+  time: number;
+  /** Observed momentum */
+  momentum: Vector3D;
+}`);
+
+newModule('Calling callbacks')
+
+console.log(`class Greeter {
+  greeting: string;
+  constructor(message: string) {
+    this.greeting = message;
+  }
+  @logged
+  greet() {
+    return "Hello, " + this.greeting;
+  }
+}
+
+function logged(target: any, name: string, descriptor: PropertyDescriptor) {
+  const fn = target[name];
+  descriptor.value = function() {
+    console.log(`Calling ${name}`);
+    return fn.apply(this, arguments);
+  };
+}
+console.log(new Greeter('Dave').greet());`);
+
+newModule('private access')
+console.log(`The private indicator is gone, and your secret is out! Much like the _private convention, TypeScript’s access modifiers only discourage you from accessing private data. With a type assertion, you can even access a private property from within TypeScript:
+
+class Diary {
+  private secret = 'cheated on my English test';
+}
+
+const diary = new Diary();
+(diary as any).secret  // OK
+`);
